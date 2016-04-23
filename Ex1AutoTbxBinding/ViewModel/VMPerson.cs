@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Ex1AutoTbxBinding.Model;
 
 namespace Ex1AutoTbxBinding.ViewModel
@@ -11,13 +12,16 @@ namespace Ex1AutoTbxBinding.ViewModel
     class VMPerson : Notication
     {
         private Person _personObj;
-        private string _firstName;
-        private string _lastName;
-        private string _fullName;
 
         public VMPerson()
         {
             PersonObj = new Person();
+            //Optional: Sets some values when working in Designview. Values are removed when application is compiled
+            if (DesignMode.DesignModeEnabled)
+            {
+                this.FirstName = "John";
+                this.LastName = "Doe";
+            }
         }
 
         internal Person PersonObj
@@ -36,15 +40,15 @@ namespace Ex1AutoTbxBinding.ViewModel
 
         public string FullName
         {
-            //Returns concatenation of firstname and lastname
-            get { return _firstName + " " + _lastName; }
+            //Returns concatenation of firstname and lastname using model properties
+            get { return PersonObj.FirstName + " " + PersonObj.LastName; }
             set
             {
-                _fullName = value;
+                PersonObj.FullName = value;
                 //Only updates the firstname-value if the value is not already the same as input
-                if (_fullName != value)
+                if (PersonObj.FullName != value)
                 {
-                    _fullName = value;
+                    PersonObj.FullName = value;
                     //Sends a message back to the view, that the FullName is also changed. If any members of the view is binded to FirstName property, they will update their values
                     OnPropertyChanged("FullName");
                 }
@@ -52,13 +56,13 @@ namespace Ex1AutoTbxBinding.ViewModel
         }
         public string FirstName
         {
-            get { return _firstName; }
+            get { return PersonObj.FirstName; }
             set
             {
                 //Only updates the firstname-value if the value is not already the same as input
-                if (value != _firstName)
+                if (value != PersonObj.FirstName)
                 {
-                    _firstName = value;
+                    PersonObj.FirstName = value;
                     //Sends a message back to the view, that FirstName is changed. If any members of the view is binded to FirstName property, they will update their values
                     OnPropertyChanged("FirstName");
                     //Sends a message back to the view, that the FullName is also changed. If any members of the view is binded to FirstName property, they will update their values
@@ -68,13 +72,13 @@ namespace Ex1AutoTbxBinding.ViewModel
         }
         public string LastName
         {
-            get { return _lastName; }
+            get { return PersonObj.LastName; }
             set
             {
                 //Only updates the lastname-value if the value is not already the same as input
-                if (_lastName != value)
+                if (PersonObj.LastName != value)
                 {
-                    _lastName = value;
+                    PersonObj.LastName = value;
                     //Sends a message back to the view, that LastName is changed. If any members of the view is binded to FirstName property, they will update their values
                     OnPropertyChanged("LastName");
                     //Sends a message back to the view, that FullName is changed. If any members of the view is binded to FirstName property, they will update their values

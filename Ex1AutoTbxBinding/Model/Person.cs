@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 
 namespace Ex1AutoTbxBinding.Model
 {
@@ -15,12 +14,7 @@ namespace Ex1AutoTbxBinding.Model
 
         public Person()
         {
-            //Optional: Sets some values when working in Designview. Values are removed when application is compiled
-            if (DesignMode.DesignModeEnabled)
-            {
-                this.FirstName = "John";
-                this.LastName = "Doe";
-            }
+            
         }
 
 
